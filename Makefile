@@ -3,8 +3,9 @@ PACKAGES=$(shell go list ./... | grep -v '/simulation')
 VERSION := $(shell echo $(shell git describe --tags) | sed 's/^v//')
 COMMIT := $(shell git log -1 --format='%H')
 
+
 # TODO: Update the ldflags with the app, client & server names
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NewApp \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=SampleApp \
 	-X github.com/cosmos/cosmos-sdk/version.ServerName=appd \
 	-X github.com/cosmos/cosmos-sdk/version.ClientName=appcli \
 	-X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
@@ -12,11 +13,17 @@ ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=NewApp \
 
 BUILD_FLAGS := -ldflags '$(ldflags)'
 
+write:
+	@echo ${PACKAGES}
+	@echo ${VERSION}
+	@echo ${COMMIT}
+	@echo ${BUILD_FLAGS}
+
 all: install
 
 install: go.sum
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/appd
-		go install -mod=readonly $(BUILD_FLAGS) ./cmd/appcli
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/sampled
+		go install -mod=readonly $(BUILD_FLAGS) ./cmd/samplecli
 
 go.sum: go.mod
 		@echo "--> Ensure dependencies have not been modified"

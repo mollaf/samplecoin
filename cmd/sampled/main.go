@@ -61,7 +61,7 @@ func main() {
 	rootCmd.AddCommand(flags.NewCompletionCmd(rootCmd, true))
 	rootCmd.AddCommand(debug.Cmd(cdc))
 
-	server.AddCommands(ctx, cdc, rootCmd, newApp, exportAppStateAndTMValidators)
+	server.AddCommands(ctx, cdc, rootCmd, sampleApp, exportAppStateAndTMValidators)
 
 	// prepare and add flags
 	executor := cli.PrepareBaseCmd(rootCmd, "AU", app.DefaultNodeHome)
@@ -73,7 +73,7 @@ func main() {
 	}
 }
 
-func newApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
+func sampleApp(logger log.Logger, db dbm.DB, traceStore io.Writer) abci.Application {
 	var cache sdk.MultiStorePersistentCache
 
 	if viper.GetBool(server.FlagInterBlockCache) {
