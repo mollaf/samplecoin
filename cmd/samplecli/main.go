@@ -25,7 +25,6 @@ import (
 	"github.com/tendermint/tendermint/libs/cli"
 
 	"github.com/mollaf/samplecoin/app"
-
 )
 
 func main() {
@@ -47,8 +46,8 @@ func main() {
 	// with the cdc
 
 	rootCmd := &cobra.Command{
-		Use:   "appcli",
-		Short: "Command line interface for interacting with appd",
+		Use:   "samplecli",
+		Short: "Command line interface for interacting with sampled",
 	}
 
 	// Add --chain-id to persistent flags and mark it required
